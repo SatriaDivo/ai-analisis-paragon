@@ -1,0 +1,60 @@
+# ==============================================================================
+# Git Ignore - Paragon Spray AI Analysis
+# ==============================================================================
+
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Datasets & Raw Video Files (Gigabytes of frames, labels & raw MP4s)
+dataset/
+data/
+*.mp4
+*.MP4
+*.avi
+*.mov
+*.mkv
+
+# YOLO Caches & Training Runs
+runs/
+*.cache
+*.log
+*.tmp
+*.temp
+
+# Pretrained Official COCO Weights (Ultralytics auto-downloads on demand)
+weights/pretrained/
+weights/yolo26n.pt
+weights/yolov8n.pt
+weights/yolov8n-seg.pt
+weights/yolov8s-seg.pt
+
+# Duplicate Testing Weights (Use weights/ directory instead)
+testing/**/weights/
+testing/weights/
+
+# Temporary Visual Test Outputs
+test_vis_*.jpg
+
+# OS & Editor generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*-checkpoint.ipynb

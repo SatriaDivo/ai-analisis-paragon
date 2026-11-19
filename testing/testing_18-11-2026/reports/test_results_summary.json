@@ -1,0 +1,42 @@
+[
+  {
+    "caseId": "C0490_peak",
+    "name": "C0490 (Sesi 2 - Kahf)",
+    "sourceFrame": "C0490_f00150_t03.00s.jpg",
+    "plumeDetected": true,
+    "confidence": 0.7983,
+    "plumeAreaPx": 161040,
+    "bbox": [
+      100,
+      652,
+      1001,
+      1015
+    ],
+    "outputImage": "uji_C0490_peak.jpg"
+  },
+  {
+    "caseId": "C0365_mid",
+    "name": "C0365 (Sesi 1 - Wardah SprayOn Serum)",
+    "sourceFrame": "C0365-Normal-Wardah_SprayOn_Serum-1.1_f00620_t12.40s.jpg",
+    "plumeDetected": true,
+    "confidence": 0.8541,
+    "plumeAreaPx": 143545,
+    "bbox": [
+      8,
+      453,
+      719,
+      802
+    ],
+    "outputImage": "uji_C0365_mid.jpg"
+  },
+  {
+    "caseId": "C0490_bg_neg",
+    "name": "C0490 (Background Negatif t=0s)",
+    "sourceFrame": "C0490_f00000_t00.00s.jpg",
+    "plumeDetected": false,
+    "confidence": 0.0,
+    "plumeAreaPx": 0,
+    "bbox": null,
+    "outputImage": "uji_C0490_bg_neg.jpg"
+  }
+]

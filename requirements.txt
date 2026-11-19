@@ -1,0 +1,38 @@
+# ==============================================================================
+# REQUIREMENTS - PARAGON SPRAYBOT GEOMETRY ANALYSIS PIPELINE (YOLOv8-Seg)
+# ==============================================================================
+# Create and activate a Python 3.13 environment before installation.
+# Windows: py -3.13 -m venv .venv
+# Linux/macOS: python3.13 -m venv .venv
+#
+# GPU ACCESSIBILITY NOTE (NVIDIA GPUs):
+# To ensure PyTorch detects your GPU, install PyTorch beforehand. Choose
+# platform-matched CUDA wheels from the official PyTorch index rather than
+# hardcoding an incompatible CUDA version.
+#
+# Select the CUDA-specific installation command at https://pytorch.org/get-started/locally/
+# before installing the rest of the dependencies.
+# Then, from the activated environment run:
+#   python -m pip install -r requirements.txt
+# ==============================================================================
+
+# Core Deep Learning & Computer Vision
+ultralytics>=8.3.0
+opencv-python>=4.10.0
+pillow>=10.0.0
+easyocr
+
+# Data Processing, Numerical, Machine Learning & Visualization
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+pyyaml>=6.0
+scikit-learn
+
+# PyTorch (Deep Learning Acceleration)
+torch>=2.4.0
+torchvision>=0.19.0
+
+# Jupyter Notebook Runner
+ipykernel>=6.25.0
+jupyterlab>=4.0.0
