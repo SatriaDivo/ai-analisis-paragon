@@ -1,6 +1,9 @@
 # 🧪 Pengujian Model — 18 November 2026
 
-Dokumentasi hasil pengujian model segmentasi YOLOv8s-seg hasil fine-tuning 122 video studio (`spraybot_seg_finetune_122vids`).
+> [!WARNING]
+> Model yang diuji di sesi ini (`spraybot_seg_finetune_122vids` / `finetuned/spraybot_seg_finetuned.pt`, Epoch 24) adalah versi **lama yang sudah deprecated**. Model ini menggunakan augmentasi destruktif (`mosaic=1.0`, `erasing=0.4`) yang menyebabkan uap berlubang dan bbox terpotong. **Model Aktif di website per 19 November 2026** adalah `weights/training_awal/spraybot_seg_video_finetuned.pt` (Model Awal, 23.877.620 bytes).
+
+Dokumentasi hasil pengujian model segmentasi YOLOv8s-seg run `spraybot_seg_finetune_122vids` (deprecated).
 
 ---
 
@@ -12,7 +15,7 @@ testing_18-11-2026/
 │   ├── uji_C0365_mid.jpg         # Panel visual uji C0365 (Confidence: 85.4%)
 │   └── uji_C0490_bg_neg.jpg      # Panel visual uji background kosong (0% FP)
 ├── weights/                      # ⚖️ Bobot model saat pengujian tanggal ini
-│   └── spraybot_seg_finetuned.pt # Bobot checkpoint terbaik (Epoch 24, 23,87 MB)
+│   └── spraybot_seg_finetuned.pt # Bobot checkpoint lama (Epoch 24, ~23,87 MB) [DEPRECATED]
 ├── reports/                      # 📊 Laporan data kuantitatif
 │   └── test_results_summary.json # Ringkasan deteksi, confidence, area, bbox
 └── README.md                     # Dokumentasi pengujian ini
@@ -22,8 +25,9 @@ testing_18-11-2026/
 
 ## 📌 Informasi Run Model
 - **Tanggal Run / Uji**: 18 November 2026 (15:13 WIB)
-- **Model Checkpoint**: `weights/spraybot_seg_finetuned.pt` (Epoch 24 best, 23,87 MB)
-- **Dataset Latih**: 122 video studio (2.924 frame bersih, `dataset_yolo_clean`)
+- **Model yang Diuji**: `finetuned/spraybot_seg_finetuned.pt` — Run `spraybot_seg_finetune_122vids` (Epoch 24 best, ~23,87 MB)
+- **Status Model**: ⚠️ **DEPRECATED** — Model ini kemudian digantikan oleh Model Awal (`training_awal/`) sebagai model produksi aktif setelah evaluasi 19 November 2026.
+- **Dataset Latih**: 122 video studio (2.924 frame bersih, `dataset_yolo_clean` v1)
 - **Fitur Khusus**: *Organic Apex Cone Mask* (zero knife-cut), Video-level train/val split.
 
 ---
@@ -43,3 +47,11 @@ testing_18-11-2026/
 2. **Zero False Positive pada Background**: Frame t=0.00s tidak menghasilkan deteksi palsu sama sekali (100% bersih).
 3. **Puncak Confidence Tinggi**: Pada semprotan aktif stabil C0365, confidence score tembus **85.4%**.
 4. **Data JSON**: Ringkasan data kuantitatif tersimpan di `reports/test_results_summary.json`.
+
+---
+
+## 📌 Keputusan Pasca-Evaluasi (19 November 2026)
+Setelah evaluasi komparatif pada 19 November 2026, model `training_awal/spraybot_seg_video_finetuned.pt` (Model Awal, 23.877.620 bytes) dipilih sebagai model aktif di website karena:
+- mAP50 Box **79.14%** dan Confidence lebih tinggi (63.6%) dibanding model Clean v2.0 (45.0%)
+- Mask area lebih presisi (84.429 px vs 231.014 px yang terlalu lebar/tipis)
+- Metrik keseluruhan lebih stabil dan lolos semua Quality Gate

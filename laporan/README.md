@@ -36,4 +36,4 @@ Laporan kemajuan berkala pelaksanaan MBKM Magang Industri di PT Paragon Technolo
 | `Laporan_Kemajuan_Paragon_Spray_v2_Hasil_Pelatihan.docx` | 14 Oktober 2026 | Hasil pelatihan model baseline v2 |
 
 ---
-*Diperbarui: 18 November 2026*
+*Diperbarui: 19 November 2026 | Model Aktif: `training_awal/spraybot_seg_video_finetuned.pt` | Dataset v2.0: 3.493 frame*

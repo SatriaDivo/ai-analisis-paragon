@@ -18,4 +18,4 @@ Direktori ini berisi seluruh skrip eksekusi dan notebook interaktif untuk menguj
 Seluruh skrip dan notebook di folder ini telah dilengkapi logika penentuan path root dinamis (`Path.cwd()`), sehingga dapat dijalankan dari:
 - Direktori workspace utama (`AI Analysis/`)
 - Maupun langsung dari dalam folder `testing/` atau `testing/scripts/`.
-Model bobot default yang dimuat adalah model terbaru di `weights/spraybot_seg_finetuned.pt`.
+Model bobot default yang dimuat adalah model aktif di `weights/training_awal/spraybot_seg_video_finetuned.pt` (Model Awal, ⭐ aktif di website). Untuk script yang masih menggunakan `weights/spraybot_seg_finetuned.pt`, pastikan file tersebut merupakan salinan dari model yang dikehendaki.

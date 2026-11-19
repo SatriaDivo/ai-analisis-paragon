@@ -99,7 +99,7 @@ Visualisasi zona plume yang terdeteksi dari video benchmark C0490. Menampilkan:
 ---
 
 ### `finetune_video_dataset/`
-Sub-folder output dari proses fine-tuning versi lama (iterasi sebelum pipeline organik). Disimpan sebagai arsip referensi historis.
+Sub-folder output dari proses fine-tuning versi lama (iterasi sebelum pipeline organik Clean v2.0). Disimpan sebagai arsip referensi historis.
 
 ---
 

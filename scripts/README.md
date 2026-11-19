@@ -90,10 +90,10 @@ python scripts/extract_all_new_videos.py
 - `dataset/dataset_video_frames_13-11-2026/` (43 video, 16.181 frame)
 
 **Output:**
-- `dataset/dataset_yolo_clean/images/train/` — 2.378 frame citra
-- `dataset/dataset_yolo_clean/images/val/` — 546 frame citra
-- `dataset/dataset_yolo_clean/labels/train/` — 2.378 label YOLO-seg
-- `dataset/dataset_yolo_clean/labels/val/` — 546 label YOLO-seg
+- `dataset/dataset_yolo_clean/images/train/` — **2.799 frame** citra
+- `dataset/dataset_yolo_clean/images/val/` — **694 frame** citra
+- `dataset/dataset_yolo_clean/labels/train/` — **2.799 label** YOLO-seg
+- `dataset/dataset_yolo_clean/labels/val/` — **694 label** YOLO-seg
 - `dataset/dataset_yolo_clean/data.yaml` — Konfigurasi dataset
 
 **Algoritma Inti (`extract_plume_polygon`):**
@@ -154,16 +154,20 @@ python scripts/build_yolo_clean_dataset.py
 
 **Parameter:**
 ```python
-BASE_MODEL = "weights/spraybot_seg_finetuned.pt"
+BASE_MODEL = "weights/training_awal/spraybot_seg_video_finetuned.pt"  # Model Aktif sebagai base
 DATA_YAML  = "dataset/dataset_yolo_clean/data.yaml"
-RUN_NAME   = "spraybot_seg_finetune_122vids"
-EPOCHS     = 25
+RUN_NAME   = "spraybot_seg_finetune_122vids_clean"  # Run Clean v2.0
+EPOCHS     = 30
 IMG_SIZE   = 1024
 BATCH_SIZE = 8
 WORKERS    = 0        # Windows: WAJIB 0!
-LR0        = 0.005    # Fine-tuning: LR lebih rendah
+LR0        = 0.001    # Fine-tuning Clean v2.0
 LRF        = 0.01
 FLIPLR     = 0.0      # Larangan flip horizontal
+MOSAIC     = 0.0      # Nonaktif (augmentasi destruktif)
+ERASING    = 0.0      # Nonaktif (augmentasi destruktif)
+MIXUP      = 0.0      # Nonaktif
+RETINA_MASKS = True   # Mask resolusi penuh
 ```
 
 **Cara Jalankan:**

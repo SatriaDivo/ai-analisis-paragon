@@ -18,7 +18,7 @@ testing/
 │   └── uji_model.py                     # Script Python inferensi batch serbaguna
 │
 ├── 📁 weights/                          # ⚖️ BOBOT MODEL AKTIF UNTUK PENGUJIAN
-│   └── spraybot_seg_finetuned.pt        # Model terbaik 122 video studio (23,87 MB)
+│   └── spraybot_seg_finetuned.pt        # Salinan model aktif terkini (kompatibel script)
 │
 ├── 📁 output/                           # 📤 FOLDER DEFAULT OUTPUT PENGUJIAN RUNTIME
 │   └── (Menyimpan output gambar/plot saat script dijalankan secara interaktif)
@@ -55,8 +55,8 @@ testing/
 
 | Folder Tanggal | Model yang Diuji | Status / Hasil Kunci | Folder Gambar | Folder Bobot | Laporan |
 |---|---|---|---|---|---|
-| **`testing_18-11-2026/`** | `spraybot_seg_finetuned.pt` (122 Video) | **mAP50 Box 79.1%**, **Precision Mask 77.4%**, **mAP50 Mask 69.0%**. Zero knife-cut, 0% FP di background. | `images/` | `weights/` | `reports/` |
-| **`testing_11-11-2026/`** | `spraybot_seg_video_finetuned.pt` (38 Video) | **mAP50 Box 67.5%**, **mAP50 Mask 55.9%**. Rintisan masker organik moncong botol. | `images/` | `weights/` | `output/` |
+| **`testing_18-11-2026/`** | `spraybot_seg_finetune_122vids` / `finetuned/spraybot_seg_finetuned.pt` (Epoch 24) ⚠️ **DEPRECATED** | Confidence 79.8–85.4%, Zero FP BG, Zero knife-cut. Model ini sudah digantikan oleh Model Aktif. | `images/` | `weights/` | `reports/` |
+| **`testing_11-11-2026/`** | `training_awal/spraybot_seg_video_finetuned.pt` (38 Video) ⭐ **MODEL AKTIF** | **mAP50 Box 79.14%**, Confidence 63.6% pada C0490. Lolos Quality Gate, dideploy ke website. | `images/` | `weights/` | `output/` |
 
 ---
 

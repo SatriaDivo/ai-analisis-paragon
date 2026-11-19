@@ -30,7 +30,7 @@ AI Analysis/
 │   ├── dataset_video_frames_09-11-2026/   # 9.877 frame Sesi 2
 │   ├── dataset_video_frames_13-11-2026/   # 16.181 frame Sesi 3
 │   ├── dataset_video_frames_cropped_03-11-2026/  # Frame 1920×800 (eksperimen)
-│   └── dataset_yolo_clean/        # ✅ Dataset YOLO resmi (2.924 frame, 122 video)
+│   └── dataset_yolo_clean/        # ✅ Dataset YOLO resmi v2.0 (3.493 frame, 122 video)
 │
 ├── 📁 output/                     # Artefak visualisasi & katalog metadata
 │   └── video_catalog.json         # Katalog metadata video dataset
@@ -38,7 +38,7 @@ AI Analysis/
 ├── 📁 runs/                       # Hasil training YOLOv8 (logs, metrics, plots)
 │   └── spraybot_clean_training/
 │       ├── spraybot_yolov8s_seg_run/         # Training awal (38 video, 35 epoch)
-│       └── spraybot_seg_finetune_122vids/    # ✅ Fine-tuning 122 video (25 epoch, selesai)
+│       └── spraybot_seg_finetune_122vids_clean/  # ✅ Fine-tuning Clean v2.0 (30 epoch, selesai 19 Nov 2026)
 │
 ├── 📁 scripts/                    # Script Python pipeline produksi & diagnostik
 │   ├── extract_all_new_videos.py  # Ekstraksi batch frame video
@@ -54,11 +54,11 @@ AI Analysis/
 │   └── 📁 testing_11-11-2026/     # 📦 Arsip pengujian baseline 11 November 2026 (images/weights/output)
 │
 ├── 📁 weights/                    # Bobot model resmi terorganisir
-│   ├── 📁 finetuned/              # ⭐ Model hasil fine-tuning terbaru (122 video)
-│   ├── 📁 training_awal/          # 📦 Model training awal sebelum fine-tuning (38 video)
-│   ├── 📁 pretrained/             # 🔵 Bobot dasar pre-trained COCO (yolov8s-seg.pt, dll)
-│   ├── spraybot_seg_finetuned.pt  # Quick-access bobot produksi aktif (23,87 MB)
-│   └── spraybot_seg_video_finetuned.pt # Quick-access bobot baseline (22,77 MB)
+│   ├── 📁 finetuned/              # 📦 Model hasil fine-tuning (Clean v2.0, 30 epoch, 19 Nov 2026)
+│   ├── 📁 training_awal/          # ⭐ Model Aktif/Produksi — training awal (38 video, lolos Quality Gate)
+│   ├── 📁 pretrained/             # 🔵 Bobot dasar pre-trained COCO (yolov8s-seg.pt, dll) [gitignored]
+│   ├── spraybot_seg_finetuned.pt  # Salinan model Clean v2.0 (23,876,788 bytes)
+│   └── spraybot_seg_video_finetuned.pt # ⭐ Salinan model AKTIF di website (23,877,620 bytes)
 │
 ├── 📁 laporan/                    # Draft laporan riset & kemajuan MBKM
 ├── 📄 DOKUMEN_TEKNIS_METRIK_AI.md  # 📘 Dokumen teknis komprehensif teori & metrik computer vision
@@ -81,20 +81,18 @@ flowchart TD
     A["📹 Rekam Video Studio\n(122 video, 50fps, 1920×1080)"] --> B["📂 Simpan ke\ndataset_new_video_DD-MM-YYYY/"]
     B --> C["🔧 Ekstraksi Frame\nscripts/extract_all_new_videos.py\n(step=5, ~10fps efektif)"]
     C --> D["📁 dataset_video_frames_DD-MM-YYYY/\n30.294 frame total"]
-    D --> E["🏗️ Build Dataset YOLO\nscripts/build_yolo_clean_dataset.py"]
-    E --> F["🔬 Organic Nozzle Apex\nCone Mask Algorithm"]
-    F --> G["📊 dataset_yolo_clean/\n2.924 frame teranotasi"]
+    D --> E["🏗️ Build Dataset YOLO v2.0\nscripts/build_yolo_clean_dataset.py"]
+    E --> F["🔬 Organic Nozzle Apex\nCone Mask + HSV Glove Masking\n(adaptive noise-floor threshold)"]
+    F --> G["📊 dataset_yolo_clean/\n3.493 frame teranotasi"]
     G --> H{"Split 80/20 Video-Level"}
-    H --> I["Train: 2.378 frame\n98 video"]
-    H --> J["Val: 546 frame\n24 video"]
-    I --> K["🧠 Fine-Tuning YOLOv8s-seg\nfinetune_spray_analysis.ipynb\nepochs=25, imgsz=1024, batch=8"]
+    H --> I["Train: 2.799 frame\n98 video"]
+    H --> J["Val: 694 frame\n24 video"]
+    I --> K["🧠 Fine-Tuning YOLOv8s-seg\nfinetune_spray_analysis.ipynb\nepochs=30, imgsz=1024, batch=8"]
     J --> K
-    K --> L["📈 runs/spraybot_clean_training/\nspraybot_seg_finetune_122vids/\n(25 Epoch Selesai)"]
-    L --> M["⚖️ weights/spraybot_seg_finetuned.pt"]
-    M --> N["🧪 Validasi Inferensi\ntesting/scripts/uji_satu_gambar.ipynb\n& testing/testing_18-11-2026/"]
-    N --> O{"✅ Evaluasi Quality Gate\n(mAP, Precision, Recall)"}
-    O -- Lolos --> P["🌐 Integrasi Produksi\nSpray-Website"]
-    O -- Belum --> K
+    K --> L["📈 runs/spraybot_clean_training/\nspraybot_seg_finetune_122vids_clean/\n(30 Epoch, selesai 19 Nov 2026)"]
+    L --> M["⚖️ Quality Gate Evaluasi\nmAP, Precision, Recall"]
+    M -- "Lolos Gate" --> P["🌐 Integrasi Produksi\nSpray-Website\n(Model Aktif: training_awal)"]
+    M -- "Belum Lolos" --> K
 ```
 
 ---
@@ -106,10 +104,10 @@ flowchart TD
 | Total Sesi Rekaman | 3 sesi (03-11, 09-11, 13-11-2026) |
 | Total Video Studio | **122 video MP4** |
 | Total Frame Diekstraksi | **30.294 frame** |
-| Frame dalam Dataset YOLO Bersih | **2.924 frame** |
-| Frame Training | 2.378 frame (98 video, rasio ~80%) |
-| Frame Validasi | 546 frame (24 video, rasio ~20%) |
-| Sampel Positif (Uap Semprotan) | 2.680 frame |
+| Frame dalam Dataset YOLO Bersih v2.0 | **3.493 frame** |
+| Frame Training | **2.799 frame** (98 video, rasio ~80%) |
+| Frame Validasi | **694 frame** (24 video, rasio ~20%) |
+| Sampel Positif (Uap Semprotan) | **3.249 frame** |
 | Sampel Negatif (Latar Kosong / Pre-spray) | 244 frame |
 | Resolusi Citra | 1920 × 1080 piksel (Full HD) |
 | Format Label | YOLOv8-seg normalized polygon coordinates |
@@ -119,18 +117,21 @@ flowchart TD
 
 ## 🎯 Metrik Evaluasi Model
 
-### Perbandingan: Model Baseline (38 Video) vs Model Fine-Tuned (122 Video)
+### Model Aktif/Produksi: `spraybot_seg_video_finetuned.pt` (Training Awal, Lolos Quality Gate)
 
-| Metrik Evaluasi | Baseline 38 Video (`spraybot_seg_video_finetuned.pt`) | Model 122 Video Terbaru (`spraybot_seg_finetuned.pt`) | Peningkatan (Delta) | Status Quality Gate |
+> [!IMPORTANT]
+> **Model yang saat ini aktif di website** adalah `weights/training_awal/spraybot_seg_video_finetuned.pt` (23.877.620 bytes). Model ini lolos seluruh Quality Gate dan telah dideploy ke `Spray-Website`. Model Clean v2.0 (`weights/finetuned/`) adalah hasil eksperimen lanjutan yang belum lolos gate.
+
+| Metrik Evaluasi | Baseline 38 Video (`training_awal/`) ⭐ AKTIF | Model Clean v2.0 (`finetuned/`, 30 epoch) | Delta | Status Quality Gate |
 |---|---|---|---|---|
-| **mAP50 (Box / Plume)** | 67.50% | **79.14%** | **+11.64%** 🚀 | 🟢 Lolos Target ($\ge 72\%$) |
-| **Recall (Box)** | 53.74% | **74.63%** | **+20.89%** 🔥 | 🟢 Lolos Target ($\ge 72\%$) |
-| **Precision (Box)** | 76.29% | **76.47%** | **+0.18%** | 🟢 Lolos Target ($\ge 72\%$) |
-| **Precision (Mask)** | 73.34% | **77.39% (Peak 78.14%)** | **+4.05%** | 🟢 Lolos Target ($\ge 72\%$) |
-| **mAP50 (Mask / Segmentasi)** | 55.95% | **68.98% (~69.0%)** | **+13.03%** 📈 | 🟡 Mendekati Target 72% |
-| **Recall (Mask)** | 51.02% | **64.26%** | **+13.24%** 📈 | 🟡 Meningkat Signifikan |
-| **mAP50-95 (Mask)** | 27.97% | **36.38%** | **+8.41%** | 🟢 Kontur Lebih Halus |
-| **Confidence Score (C0490/C0365)** | ~70% – 82% | **Hingga 85.4%** | Menguat | 🟢 Sering Tembus >80% |
+| **mAP50 (Box / Plume)** | **79.14%** | 54.63% | -24.51% | 🟢 Aktif Lolos / ⚠️ Clean v2.0 Belum |
+| **Recall (Box)** | **74.63%** | 49.84% | -24.79% | 🟢 Aktif Lolos ($\ge 72\%$) |
+| **Precision (Box)** | **74.23%** | 56.86% | -17.37% | 🟢 Aktif Lolos ($\ge 72\%$) |
+| **Precision (Mask)** | **77.39%** | **73.43%** | -3.96% | 🟢 Keduanya Lolos |
+| **mAP50 (Mask / Segmentasi)** | **68.98%** | 56.14% | -12.84% | 🟡 Aktif Mendekati 72% |
+| **Recall (Mask)** | **64.26%** | 44.43% | -19.83% | 🟡 Aktif Meningkat Signifikan |
+| **Confidence pada Frame Uji** | **63.6%** (C0490) | 45.0% (C0490) | -18.6% | 🟢 Aktif Lebih Tinggi |
+| **Mask Area (Frame Uji)** | 84.429 px | 231.014 px (lebar/tipis) | — | 🟢 Aktif Lebih Presisi |
 
 ---
 
@@ -277,4 +278,4 @@ python testing/scripts/uji_model.py --image "dataset/dataset_video_frames_09-11-
 
 ---
 
-*Dokumentasi diperbarui: 18 November 2026 | AI Spraybot v2.0 — 122 Video Studio Paragon*
+*Dokumentasi diperbarui: 19 November 2026 | AI Spraybot v2.0 — 122 Video Studio Paragon | Model Aktif: `training_awal/spraybot_seg_video_finetuned.pt` | Dataset v2.0: 3.493 frame*
